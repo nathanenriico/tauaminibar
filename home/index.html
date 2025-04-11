@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frigobar do Hotel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Frigobar do Hotel</h1>
+        <div class="catalog">
+            <h2>Catálogo de Itens</h2>
+            
+            <!-- Grupo Água -->
+            <div class="group">
+                <h3 class="group-title">Água</h3>
+                <ul class="group-items" id="agua">
+                    <li>
+                        <img src="imagem agua/agua-com-gas.png" class="product-image">
+                        <span>Água com Gás</span>
+                        <span>R$ 8,00</span>
+                        <button onclick="addItem('Água com Gás', 8)">Adicionar</button>
+                    </li>
+                    <li>
+                        <img src="imagem agua/agua-mineral.png" class="product-image">
+                        <span>Água sem Gás</span>
+                        <span>R$ 8,00</span>
+                        <button onclick="addItem('Água sem Gás', 8)">Adicionar</button>
+                    </li>
+                </ul>
+            </div>
+        
+            <!-- Grupo Refrigerante -->
+            <div class="group">
+                <h3 class="group-title">Bebidas</h3>
+                <ul class="group-items" id="bebidas">
+                    <li>
+                        <img src="imagem refris/cola.png" class="product-image">
+                        <span>Coca Cola</span>
+                        <span>R$ 12,50</span>
+                        <button onclick="addItem('Coca Cola', 12.50)">Adicionar</button>
+                    </li>
+                    <li>
+                        <img src="imagem refris/refrigerante.png" class="product-image">
+                        <span>Guaraná</span>
+                        <span>R$ 12,50</span>
+                        <button onclick="addItem('Guaraná', 12.50)">Adicionar</button>
+                    </li>
+
+                    <li>
+                        <img src="imagem refris/caixa-de-suco.png" class="product-image">
+                        <span>Toddy</span>
+                        <span>R$ 10,00</span>
+                        <button onclick="addItem('Toddy', 10)">Adicionar</button>
+                    </li>
+                </ul>
+            </div>
+        
+            <!-- Grupo Chocolate -->
+            <div class="group">
+                <h3 class="group-title">Acrilico</h3>
+                <ul class="group-items" id="Acrilico">
+                    <li>
+                        <img src="imagens acrilico/chiclete.png" class="product-image">
+                        <span>Trident</span>
+                        <span>R$ 6,50</span>
+                        <button onclick="addItem('Trident', 6.50)">Adicionar</button>
+                    </li>
+                    <li>
+                        <img src="imagens acrilico/prestigio.png" class="product-image">
+                        <span>Prestigio</span>
+                        <span>R$ 10,00</span>
+                        <button onclick="addItem('Prestigio', 10)">Adicionar</button>
+                    </li>
+
+                    <li>
+                        <img src="imagens acrilico/laka.png" class="product-image">
+                        <span>Laka 20g</span>
+                        <span>R$ 8,00</span>
+                        <button onclick="addItem('Laka 10mg', 8)">Adicionar</button>
+                    </li>
+
+                    <li>
+                        <img src="imagens acrilico/snickers.png" class="product-image">
+                        <span>Snickers 45</span>
+                        <span>R$ 14,00</span>
+                        <button onclick="addItem('Snickers', 14)">Adicionar</button>
+                    </li>
+
+                    <li>
+                        <img src="imagens acrilico/barra-de-chocolate.png" class="product-image">
+                        <span>Kit Kat</span>
+                        <span>R$ 14,00</span>
+                        <button onclick="addItem('Kit Kat', 14)">Adicionar</button>
+                    </li>
+
+                    <li>
+                        <img src="imagens acrilico/barra-de-chocolate.png" class="product-image">
+                        <span>M&M's</span>
+                        <span>R$ 12,00</span>
+                        <button onclick="addItem('M&Ms', 12)">Adicionar</button>
+                    </li>
+
+                    <li>
+                        <img src="imagens acrilico/barra-de-chocolate.png"  class="product-image">
+                        <span>Suflair</span>
+                        <span>R$ 14,00</span>
+                        <button onclick="addItem('Suflair', 14)">Adicionar</button>
+                    </li>
+
+                    <li>
+                        <img src="imagens acrilico/potato-chips.png" class="product-image">
+                        <span>Batata Mister</span>
+                        <span>R$ 19,00</span>
+                        <button onclick="addItem('Batata', 19)">Adicionar</button>
+                    </li>
+
+                    <li>
+                        <img src="imagens acrilico/castanha-do-para.png" class="product-image">
+                        <span>Castanha de Caju</span>
+                        <span>R$ 12,00</span>
+                        <button onclick="addItem('Castanha Caju', 12)">Adicionar</button>
+                    </li>
+
+                    <li>
+                        <img src="imagens acrilico/ovo-de-chocolate.png" class="product-image">
+                        <span>Kinder Joy</span>
+                        <span>R$ 18,00</span>
+                        <button onclick="addItem('Kinder Joy', 18)">Adicionar</button>
+                    </li>
+                </ul>
+            </div>
+            <div class="group">
+                <h3 class="group-title">Cerveja</h3>
+                <ul class="group-items" id="cerveja">
+                    <li>
+                        <img src="cerveja/lata-de-cerveja.png" class="product-image">
+                        <span>Heineken lata</span>
+                        <span>R$ 18,00</span>
+                        <button onclick="addItem('Heineken lata', 18)">Adicionar</button>
+                    </li>
+                </ul>
+        </div>
+        
+        <div class="group">
+            <h3 class="group-title">Cafés</h3>
+            <ul class="group-items" id="cafe">
+                <li>
+                    <img src="cafe/xicara-de-cafe.png" class="product-image">
+                    <span>Capsula Arpeggio New 40</span>
+                    <span>R$ 8,00</span>
+                    <button onclick="addItem('Capsula Arpeggio New 40', 8)">Adicionar</button>
+                </li>
+
+                <li>
+                    <img src="cafe/xicara-de-cafe.png" class="product-image">
+                    <span>Capsula Ristretto New 40</span>
+                    <span>R$ 8,00</span>
+                    <button onclick="addItem('Capsula Ristretto New 40', 8)">Adicionar</button>
+                </li>
+
+                <li>
+                    <img src="cafe/xicara-de-cafe.png" class="product-image">
+                    <span>Capsula Volluto New 40</span>
+                    <span>R$ 8,00</span>
+                    <button onclick="addItem('Capsula Volluto New 40', 8)">Adicionar</button>
+                </li>
+            </ul>
+    </div>
+        <div class="summary">
+            <h2>Resumo do Consumo</h2>
+            <ul id="summary-list"></ul>
+            <p>Total: R$ <span id="total">0.00</span></p>
+            
+            <label for="apartment-number">Número do Apartamento:</label>
+            <input type="text" id="apartment-number" placeholder="Número do apartamento">
+            
+            <button onclick="confirmConsumption()">Confirmar Consumo</button>
+            <button id="chat-toggle" class="chat-toggle" onclick="toggleChat()">💬 Ajuda</button>
+        </div>
+    </div>
+
+    <div id="popup" class="popup" style="display: none;">
+        <div class="popup-content">
+            <h2>Confirmação do Consumo</h2>
+            <ul id="popup-list"></ul>
+            <p>Total: R$ <span id="popup-total">0.00</span></p>
+            
+            <p><strong>Apartamento:</strong> <span id="popup-apartment"></span></p>
+    
+            <button onclick="openEditMode()">Editar</button>
+            <button onclick="finalizeConsumption()" id="confirmar">Confirmar</button>
+        </div>
+    </div>
+    
+    <!-- Novo Popup para o QR Code -->
+    <div id="payment-popup" class="popup" style="display: none;">
+        <div class="popup-content">
+            <h2>Finalize seu pagamento</h2>
+            <div id="qrcode"></div>
+            <button onclick="closePaymentPopup()">Fechar</button>
+        </div>
+    </div>
+
+    <div id="warning-popup" class="popup" style="display: none;">
+        <div class="popup-content">
+            <h2>Aviso</h2>
+            <p>Por favor, insira o número do apartamento antes de confirmar o consumo.</p>
+            <button onclick="closeWarningPopup()">Fechar</button>
+        </div>
+    </div>
+    <div id="chatbot" class="chatbot">
+        <div class="chat-header">
+            <span>🤖 Assistente Virtual</span>
+            <button onclick="toggleChat()">✖</button>
+        </div>
+        
+        <div class="chat-body" id="chat-body">
+            <p>Olá! Como posso ajudar?</p>
+            <button onclick="sendMessage('Posso usar o app para lançar consumo após a conferência do frigobar?')">📋  Posso usar o app para lançar consumo após a conferência do frigobar?</button>
+            <button class="whatsapp-btn" onclick="redirectToWhatsApp()">📞 Falar com a recepção</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

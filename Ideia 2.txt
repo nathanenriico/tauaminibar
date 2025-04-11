@@ -1,0 +1,24 @@
+Como Funciona?
+QR Code no Frigobar
+
+Cada frigobar terá um QR Code fixado na parte interna da porta.
+
+O hóspede pode escanear esse código com seu celular e será direcionado para uma página web personalizada (sem necessidade de baixar um app).
+
+Página Web do Frigobar
+
+O hóspede verá um catálogo digital com os itens disponíveis, preços e a opção de declarar o que consumiu.
+
+Assim que selecionar os itens, ele confirma o consumo e os valores são registrados automaticamente no sistema do hotel.
+
+Cobrança Automática e Pré-Autorização
+
+No check-in, o sistema do hotel faz uma pré-autorização no cartão do hóspede (por exemplo, um valor fixo estimado para o frigobar).
+
+Quando o hóspede faz o check-out, o sistema ajusta o valor conforme o consumo real. Se nada foi consumido, o valor bloqueado é liberado.
+
+Conferência Inteligente
+
+Se o hóspede não escanear o QR Code para autodeclarar e houver um consumo detectado na conferência do frigobar, o sistema pode automaticamente debitar o valor da pré-autorização.
+
+Em caso de contestação, uma foto do frigobar antes e depois pode ser anexada ao sistema para comprovação.
