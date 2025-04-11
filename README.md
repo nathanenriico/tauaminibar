@@ -1,1 +1,2 @@
 # tauaminibar
+Este sistema inovador de frigobar permite que os hóspedes declarem o consumo de itens de forma rápida e prática, utilizando um QR Code e uma página web personalizada. O sistema realiza a cobrança automática no check-out, ajustando o valor conforme o consumo real e liberando a pré-autorização caso não haja consumo. Além disso, o hotel tem a opção de conferir o consumo e anexar fotos do frigobar para comprovação em caso de contestação.
