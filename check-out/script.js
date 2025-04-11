@@ -4,7 +4,7 @@ document.getElementById("checkout-form").addEventListener("submit", function(eve
     let consumoSim = document.getElementById("consumo-sim").checked;
     
     if (consumoSim) {
-        window.location.href = "https://nathanenriico.github.io/tauaminibarmelhorias/home/index.html"; // Redireciona para a página de lançamento de consumo
+        window.location.href = "https://nathanenriico.github.io/tauaminibar/home/index.html"; // Redireciona para a página de lançamento de consumo
     } else {
         alert("Checkout realizado com sucesso!"); // Alerta para o usuário
     }
