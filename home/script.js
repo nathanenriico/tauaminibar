@@ -82,12 +82,10 @@ function finalizeConsumption() {
     const chavePix = "11941716617";
     const nomeRecebedor = "FRIGOBAR HOTEL TAUA"; // Sem acento
     const cidade = "ATIBAIA"; // Sem acento
-    
 
     function montaCampo(id, valor) {
         const tamanho = valor.length.toString().padStart(2, '0');
         return `${id}${tamanho}${valor}`;
-        
     }
 
     function gerarCRC16(payload) {
@@ -131,11 +129,24 @@ function finalizeConsumption() {
         height: 256
     });
 
+    // Preenche campo Pix Copia e Cola
+    document.getElementById("pix-code").value = payloadFinal;
+
+    // Limpa consumo e mostra popup de pagamento
     consumption = [];
     updateSummary();
     closePopup();
     openPaymentPopup();
 }
+
+function copiarPix() {
+    const pixTextarea = document.getElementById("pix-code");
+    pixTextarea.select();
+    pixTextarea.setSelectionRange(0, 99999); // Para mobile
+    document.execCommand("copy");
+    alert("Código Pix copiado com sucesso!");
+}
+
 
 function openPaymentPopup() {
     document.getElementById("payment-popup").style.display = "block";
