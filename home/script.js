@@ -10,14 +10,14 @@ function updateSummary() {
     let totalElement = document.getElementById("total");
     summaryList.innerHTML = "";
     let total = 0;
-    
+
     consumption.forEach((item, index) => {
         let li = document.createElement("li");
         li.innerHTML = `${item.name} - R$ ${item.price.toFixed(2)} <button onclick="removeItem(${index})">Remover</button>`;
         summaryList.appendChild(li);
         total += item.price;
     });
-    
+
     totalElement.textContent = total.toFixed(2);
 }
 
@@ -30,20 +30,16 @@ function confirmConsumption() {
     const apartmentNumber = document.getElementById('apartment-number').value.trim();
 
     if (apartmentNumber === "") {
-        // Exibir o popup de aviso se o número do apartamento não for inserido
         document.getElementById('warning-popup').style.display = 'flex';
     } else {
-        // Lógica para confirmar o consumo
         const summaryList = document.getElementById('summary-list');
         const popupList = document.getElementById('popup-list');
         const total = document.getElementById('total').innerText;
 
-        // Preencher o popup com os dados do resumo
         popupList.innerHTML = summaryList.innerHTML;
         document.getElementById('popup-total').innerText = total;
         document.getElementById('popup-apartment').innerText = apartmentNumber;
 
-        // Exibir o popup de confirmação
         document.getElementById('popup').style.display = 'flex';
     }
 }
@@ -51,26 +47,25 @@ function confirmConsumption() {
 function closeWarningPopup() {
     document.getElementById('warning-popup').style.display = 'none';
 }
-    
-    let popup = document.getElementById("popup");
-    let popupList = document.getElementById("popup-list");
-    let popupTotal = document.getElementById("popup-total");
-    let popupApartment = document.getElementById("popup-apartment");
 
-    popupList.innerHTML = "";
-    let total = 0;
-    
-    consumption.forEach((item, index) => {
-        let li = document.createElement("li");
-        li.innerHTML = `${item.name} - R$ ${item.price.toFixed(2)} <button onclick="removeItem(${index}); confirmConsumption();">Remover</button>`;
-        popupList.appendChild(li);
-        total += item.price;
-    });
-    
-    popupTotal.textContent = total.toFixed(2);
-    popupApartment.textContent = apartmentNumber;
-    popup.style.display = "block";
+let popup = document.getElementById("popup");
+let popupList = document.getElementById("popup-list");
+let popupTotal = document.getElementById("popup-total");
+let popupApartment = document.getElementById("popup-apartment");
 
+popupList.innerHTML = "";
+let total = 0;
+
+consumption.forEach((item, index) => {
+    let li = document.createElement("li");
+    li.innerHTML = `${item.name} - R$ ${item.price.toFixed(2)} <button onclick="removeItem(${index}); confirmConsumption();">Remover</button>`;
+    popupList.appendChild(li);
+    total += item.price;
+});
+
+popupTotal.textContent = total.toFixed(2);
+popupApartment.textContent = apartmentNumber;
+popup.style.display = "block";
 
 function openEditMode() {
     document.getElementById("popup").style.display = "none";
@@ -78,23 +73,67 @@ function openEditMode() {
 
 function finalizeConsumption() {
     const apartmentNumber = document.getElementById("apartment-number").value.trim();
-    const total = document.getElementById("popup-total").innerText; // Obtém o total
+    if (!apartmentNumber) {
+        document.getElementById("warning-popup").style.display = "block";
+        return;
+    }
+
+    const total = parseFloat(document.getElementById("popup-total").innerText.replace(",", "."));
+    const chavePix = "11941716617";
+    const nomeRecebedor = "FRIGOBAR HOTEL TAUA"; // Sem acento
+    const cidade = "ATIBAIA"; // Sem acento
     
-    // URL de pagamento (exemplo)
-    const paymentURL = `https://seuservicodepagamento.com/pagar?apartamento=${apartmentNumber}&total=${total}`;
+
+    function montaCampo(id, valor) {
+        const tamanho = valor.length.toString().padStart(2, '0');
+        return `${id}${tamanho}${valor}`;
         
-    // Gera o QR Code
-    $('#qrcode').empty(); // Limpa QR Code anterior
-    $('#qrcode').qrcode(paymentURL); // Gera novo QR Code
-    
-    // Limpa o consumo e atualiza o resumo
+    }
+
+    function gerarCRC16(payload) {
+        let polinomio = 0x1021;
+        let resultado = 0xFFFF;
+
+        for (let i = 0; i < payload.length; i++) {
+            resultado ^= payload.charCodeAt(i) << 8;
+            for (let j = 0; j < 8; j++) {
+                if ((resultado <<= 1) & 0x10000) resultado ^= polinomio;
+                resultado &= 0xFFFF;
+            }
+        }
+
+        return resultado.toString(16).toUpperCase().padStart(4, "0");
+    }
+
+    const merchantAccountInfo = montaCampo("00", "BR.GOV.BCB.PIX") + montaCampo("01", chavePix);
+    const txid = `AP${apartmentNumber}`.substring(0, 25);
+
+    const payloadSemCRC =
+        montaCampo("00", "01") +
+        montaCampo("26", merchantAccountInfo) +
+        montaCampo("52", "0000") +
+        montaCampo("53", "986") +
+        montaCampo("54", total.toFixed(2)) +
+        montaCampo("58", "BR") +
+        montaCampo("59", nomeRecebedor.substring(0, 25)) +
+        montaCampo("60", cidade.substring(0, 15)) +
+        montaCampo("62", montaCampo("05", txid)) +
+        "6304";
+
+    const crc16 = gerarCRC16(payloadSemCRC);
+    const payloadFinal = payloadSemCRC + crc16;
+
+    // Gera o QR Code Pix
+    $('#qrcode').empty();
+    $('#qrcode').qrcode({
+        text: payloadFinal,
+        width: 256,
+        height: 256
+    });
+
     consumption = [];
     updateSummary();
-    
-    // Fecha o popup principal
     closePopup();
-    
-    // Abre o novo popup de pagamento
     openPaymentPopup();
 }
 
@@ -104,11 +143,6 @@ function openPaymentPopup() {
 
 function closePaymentPopup() {
     document.getElementById("payment-popup").style.display = "none";
-}
-
-// Função para fechar o popup principal (exemplo)
-function closePopup() {
-    document.getElementById("popup").style.display = "none";
 }
 
 function closePopup() {
@@ -123,15 +157,15 @@ function toggleChat() {
 function sendMessage(message) {
     let chatBody = document.getElementById("chat-body");
     let response = getResponse(message);
-    
+
     let userMessage = document.createElement("p");
     userMessage.innerHTML = `<strong>Você:</strong> ${message}`;
     chatBody.appendChild(userMessage);
-    
+
     let botMessage = document.createElement("p");
     botMessage.innerHTML = `<strong>Bot:</strong> ${response}`;
     chatBody.appendChild(botMessage);
-    
+
     chatBody.scrollTop = chatBody.scrollHeight;
 }
 
