@@ -151,13 +151,23 @@ function copiarPix() {
 }
 
 function enviarWhatsapp() {
-    const numero = "5511941716617"; // DDI 55 + DDD 11 + número
+    const numero = "5511941716617"; // DDI + DDD + número
     const apartamento = document.getElementById("apartment-number").value.trim();
     const total = document.getElementById("popup-total").innerText;
+    const comprovanteInput = document.getElementById("comprovante");
+
+    if (comprovanteInput.files.length === 0) {
+        alert("Por favor, anexe o comprovante antes de enviar.");
+        return;
+    }
+
     const mensagem = `Olá! Sou do apartamento ${apartamento}. Segue o comprovante de pagamento do frigobar, no valor de R$ ${total}.`;
 
+    // Abre o WhatsApp com a mensagem pronta
     const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
     window.open(url, '_blank');
+
+    alert("Mensagem enviada para o WhatsApp. Não esqueça de anexar o comprovante manualmente no chat.");
 }
 
 // Novo popup de sucesso ao copiar
