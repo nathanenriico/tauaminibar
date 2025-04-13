@@ -150,24 +150,42 @@ function copiarPix() {
     showCopySuccessPopup();
 }
 
-function enviarWhatsapp() {
-    const numero = "5511941716617"; // DDI + DDD + número
-    const apartamento = document.getElementById("apartment-number").value.trim();
-    const total = document.getElementById("popup-total").innerText;
-    const comprovanteInput = document.getElementById("comprovante");
+function mostrarPreview(event) {
+    const arquivo = event.target.files[0];
+    if (arquivo) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById("preview-comprovante").innerHTML = `
+                <p><strong>Prévia do comprovante:</strong></p>
+                <img src="${e.target.result}" alt="Comprovante" style="max-width: 100%; margin-top: 10px; border-radius: 8px;">
+            `;
+        };
+        reader.readAsDataURL(arquivo);
+    }
+}
 
-    if (comprovanteInput.files.length === 0) {
-        alert("Por favor, anexe o comprovante antes de enviar.");
+function enviarWhatsapp() {
+    const comprovante = document.getElementById("comprovante").files[0];
+    const apartamento = document.getElementById("apartment-number").value.trim();
+
+    if (!comprovante) {
+        document.getElementById("comprovante-popup").style.display = "flex";
         return;
     }
 
-    const mensagem = `Olá! Sou do apartamento ${apartamento}. Segue o comprovante de pagamento do frigobar, no valor de R$ ${total}.`;
+    if (!apartamento) {
+        alert("Informe o número do apartamento antes de enviar.");
+        return;
+    }
 
-    // Abre o WhatsApp com a mensagem pronta
-    const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
-    window.open(url, '_blank');
+    const mensagem = `Olá, segue o comprovante de pagamento do apartamento ${apartamento}. Por favor, verifique no sistema.`;
+    const numero = "5511941716617"; // com DDI
+    const link = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
+    window.open(link, '_blank');
+}
 
-    alert("Mensagem enviada para o WhatsApp. Não esqueça de anexar o comprovante manualmente no chat.");
+function fecharComprovantePopup() {
+    document.getElementById("comprovante-popup").style.display = "none";
 }
 
 // Novo popup de sucesso ao copiar
