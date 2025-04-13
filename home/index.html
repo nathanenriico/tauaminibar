@@ -207,11 +207,18 @@
             <textarea id="pix-code" rows="4" readonly style="width: 100%; font-size: 14px;"></textarea>
             <button onclick="copiarPix()">Copiar Código</button>
     
-            <button onclick="enviarWhatsapp()" style="margin-top: 10px;">Enviar Comprovante pelo WhatsApp</button>
+            <hr>
     
-            <button onclick="closePaymentPopup()">Fechar</button>
-        </div>
-    </div>
+            <div class="comprovante-section">
+                <label for="comprovante">📎 Anexar comprovante:</label>
+                <input type="file" id="comprovante" accept="image/*,application/pdf">
+            
+                <button onclick="enviarWhatsapp()" class="whatsapp-button">
+                    <img src="https://img.icons8.com/ios-filled/50/ffffff/whatsapp.png" alt="WhatsApp">
+                    Enviar pelo WhatsApp
+                </button>
+            </div>
+            
     
     
 
