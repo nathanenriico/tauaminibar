@@ -80,8 +80,8 @@ function finalizeConsumption() {
 
     const total = parseFloat(document.getElementById("popup-total").innerText.replace(",", "."));
     const chavePix = "frigobartaua@gmail.com";
-    const nomeRecebedor = "FRIGOBAR HOTEL TAUA"; // Sem acento
-    const cidade = "ATIBAIA"; // Sem acento
+    const nomeRecebedor = "TAUAHOTEL"; // Nome cadastrado exato no Pix
+    const cidade = "ATIBAIA"; // Cidade cadastrada exata no Pix
 
     function montaCampo(id, valor) {
         const tamanho = valor.length.toString().padStart(2, '0');
@@ -91,7 +91,6 @@ function finalizeConsumption() {
     function gerarCRC16(payload) {
         let polinomio = 0x1021;
         let resultado = 0xFFFF;
-
         for (let i = 0; i < payload.length; i++) {
             resultado ^= payload.charCodeAt(i) << 8;
             for (let j = 0; j < 8; j++) {
@@ -99,28 +98,26 @@ function finalizeConsumption() {
                 resultado &= 0xFFFF;
             }
         }
-
         return resultado.toString(16).toUpperCase().padStart(4, "0");
     }
 
-    // Monta a seção 26 (Merchant Account Information) corretamente com a chave Pix
-    const merchantAccountInfo =
-        montaCampo("00", "BR.GOV.BCB.PIX") +
+    const merchantAccountInfo = 
+        montaCampo("00", "BR.GOV.BCB.PIX") + 
         montaCampo("01", chavePix);
 
-    const txid = `AP${apartmentNumber}`.substring(0, 25);
+    const txid = "***"; // TXID padrão pra não dar erro no Santander
 
     const payloadSemCRC =
-        montaCampo("00", "01") + // Payload Format Indicator
-        montaCampo("26", merchantAccountInfo) + // Merchant Account Info
-        montaCampo("52", "0000") + // Merchant Category Code
-        montaCampo("53", "986") + // Transaction Currency (986 = BRL)
-        montaCampo("54", total.toFixed(2)) + // Transaction Amount
-        montaCampo("58", "BR") + // Country Code
-        montaCampo("59", nomeRecebedor.substring(0, 25)) + // Merchant Name
-        montaCampo("60", cidade.substring(0, 15)) + // Merchant City
-        montaCampo("62", montaCampo("05", txid)) + // Additional Data Field Template
-        "6304"; // CRC16 placeholder
+        montaCampo("00", "01") +
+        montaCampo("26", merchantAccountInfo) +
+        montaCampo("52", "0000") +
+        montaCampo("53", "986") +
+        montaCampo("54", total.toFixed(2)) +
+        montaCampo("58", "BR") +
+        montaCampo("59", nomeRecebedor.substring(0, 25)) +
+        montaCampo("60", cidade.substring(0, 15)) +
+        montaCampo("62", montaCampo("05", txid)) +
+        "6304";
 
     const crc16 = gerarCRC16(payloadSemCRC);
     const payloadFinal = payloadSemCRC + crc16;
@@ -143,12 +140,24 @@ function finalizeConsumption() {
     openPaymentPopup();
 }
 
+
+
 function copiarPix() {
     const pixTextarea = document.getElementById("pix-code");
     pixTextarea.select();
     pixTextarea.setSelectionRange(0, 99999); // Para mobile
     document.execCommand("copy");
     showCopySuccessPopup();
+}
+
+function enviarWhatsapp() {
+    const numero = "5511941716617"; // DDI 55 + DDD 11 + número
+    const apartamento = document.getElementById("apartment-number").value.trim();
+    const total = document.getElementById("popup-total").innerText;
+    const mensagem = `Olá! Sou do apartamento ${apartamento}. Segue o comprovante de pagamento do frigobar, no valor de R$ ${total}.`;
+
+    const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
+    window.open(url, '_blank');
 }
 
 // Novo popup de sucesso ao copiar
