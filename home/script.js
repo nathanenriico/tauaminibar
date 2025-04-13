@@ -79,7 +79,7 @@ function finalizeConsumption() {
     }
 
     const total = parseFloat(document.getElementById("popup-total").innerText.replace(",", "."));
-    const chavePix = "11941716617";
+    const chavePix = "frigobartaua@gmail.com";
     const nomeRecebedor = "FRIGOBAR HOTEL TAUA"; // Sem acento
     const cidade = "ATIBAIA"; // Sem acento
 
@@ -103,20 +103,24 @@ function finalizeConsumption() {
         return resultado.toString(16).toUpperCase().padStart(4, "0");
     }
 
-    const merchantAccountInfo = montaCampo("00", "BR.GOV.BCB.PIX") + montaCampo("01", chavePix);
+    // Monta a seção 26 (Merchant Account Information) corretamente com a chave Pix
+    const merchantAccountInfo =
+        montaCampo("00", "BR.GOV.BCB.PIX") +
+        montaCampo("01", chavePix);
+
     const txid = `AP${apartmentNumber}`.substring(0, 25);
 
     const payloadSemCRC =
-        montaCampo("00", "01") +
-        montaCampo("26", merchantAccountInfo) +
-        montaCampo("52", "0000") +
-        montaCampo("53", "986") +
-        montaCampo("54", total.toFixed(2)) +
-        montaCampo("58", "BR") +
-        montaCampo("59", nomeRecebedor.substring(0, 25)) +
-        montaCampo("60", cidade.substring(0, 15)) +
-        montaCampo("62", montaCampo("05", txid)) +
-        "6304";
+        montaCampo("00", "01") + // Payload Format Indicator
+        montaCampo("26", merchantAccountInfo) + // Merchant Account Info
+        montaCampo("52", "0000") + // Merchant Category Code
+        montaCampo("53", "986") + // Transaction Currency (986 = BRL)
+        montaCampo("54", total.toFixed(2)) + // Transaction Amount
+        montaCampo("58", "BR") + // Country Code
+        montaCampo("59", nomeRecebedor.substring(0, 25)) + // Merchant Name
+        montaCampo("60", cidade.substring(0, 15)) + // Merchant City
+        montaCampo("62", montaCampo("05", txid)) + // Additional Data Field Template
+        "6304"; // CRC16 placeholder
 
     const crc16 = gerarCRC16(payloadSemCRC);
     const payloadFinal = payloadSemCRC + crc16;
@@ -144,8 +148,20 @@ function copiarPix() {
     pixTextarea.select();
     pixTextarea.setSelectionRange(0, 99999); // Para mobile
     document.execCommand("copy");
-    alert("Código Pix copiado com sucesso!");
+    showCopySuccessPopup();
 }
+
+// Novo popup de sucesso ao copiar
+function showCopySuccessPopup() {
+    const successPopup = document.createElement("div");
+    successPopup.className = "copy-success-popup";
+    successPopup.innerText = "Código Pix copiado com sucesso!";
+    document.body.appendChild(successPopup);
+    setTimeout(() => {
+        successPopup.remove();
+    }, 2000);
+}
+
 
 
 function openPaymentPopup() {
