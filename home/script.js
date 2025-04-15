@@ -188,6 +188,11 @@ function fecharComprovantePopup() {
     document.getElementById("comprovante-popup").style.display = "none";
 }
 
+function fecharPopup() {
+    document.getElementById('payment-popup').style.display = 'none';
+  }
+  
+
 // Novo popup de sucesso ao copiar
 function showCopySuccessPopup() {
     const successPopup = document.createElement("div");
