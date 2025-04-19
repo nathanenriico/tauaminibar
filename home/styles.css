@@ -50,11 +50,17 @@ h1 {
   }
   
   .summary ul li {
-    padding: 10px 0;
-    border-bottom: 1px solid #ddd;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     font-size: 1rem;
-    color: #333;
+    background-color: #fff;
   }
+  
   
   .summary p {
     font-size: 1.1rem;
@@ -154,6 +160,27 @@ button {
 button:hover {
     background-color: #0056b3;
 }
+
+.remove-button {
+    background-color: #25D366;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 0.95rem;
+    margin-left: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  
+  .remove-button:hover {
+    background-color: #1ebe5d;
+  }
+  
+
 .popup {
     /* Estilos para o popup */
     display: none; /* Inicialmente escondido */
@@ -380,25 +407,68 @@ button:hover {
     background: #0056b3;
 }
 /* imagens */
-.group {
-    margin-bottom: 20px;
-}
-
-.group-title {
-    font-size: 1.5em;
-    margin-bottom: 10px;
-}
-
 .group-items {
-    list-style-type: none;
+    list-style: none;
     padding: 0;
-}
-
-.group-items li {
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+  }
+  
+  .group-items li {
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     display: flex;
-    align-items: left;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .product-image {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
     margin-bottom: 10px;
-}
+  }
+  
+  .group-title {
+    font-size: 1.5rem;
+    color: #007bff;
+    margin: 25px 0 15px;
+  }
+  
+  .group-items span {
+    font-size: 1rem;
+  }
+  
+  .group-items span:last-of-type {
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* Botão Adicionar */
+  .group-items button {
+    background-color: #25D366;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 0.95rem;
+    margin-top: 10px;
+    width: 100%;
+  }
+  
+  .group-items button:hover {
+    background-color: #1ebe5d;
+  }
+  
 
 .product-image {
     width: 50px; /* Defina a largura desejada */
@@ -415,7 +485,7 @@ button {
     padding: 5px 10px;
     background-color: #4CAF50; /* Cor de fundo do botão */
     color: white; /* Cor do texto do botão */
-    border: none; /* Remove a borda padrão */
+    border: none; /*  a borda padrão */
     border-radius: 5px; /* Bordas arredondadas */
     cursor: pointer; /* Muda o cursor para indicar que é clicável */
 }
