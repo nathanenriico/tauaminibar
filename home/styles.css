@@ -27,10 +27,89 @@ h1 {
     font-family: 'Roboto', sans-serif;
 }
 
-.catalog, .summary {
+.summary {
     margin-top: 30px;
-}
-
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    text-align: center;
+  }
+  
+  .summary h2 {
+    font-size: 1.6rem;
+    color: #007bff;
+    margin-bottom: 20px;
+  }
+  
+  .summary ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+    text-align: left;
+  }
+  
+  .summary ul li {
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  .summary p {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #333;
+    margin: 20px 0;
+  }
+  
+  .summary label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: #555;
+    text-align: left;
+  }
+  
+  .summary input[type="text"] {
+    padding: 14px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 450px;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+  }
+  
+  .summary button {
+    background-color: #25D366;
+    color: white;
+    border: none;
+    padding: 14px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 1rem;
+    margin: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .summary button:hover {
+    background-color: #1ebe5d;
+  }
+  
+  #chat-toggle {
+    background-color: #007bff;
+  }
+  
+  #chat-toggle:hover {
+    background-color: #0069d9;
+  }
+  
+  
 h2 {
     color: #007bff;
     margin-bottom: 15px;
@@ -58,6 +137,11 @@ li span {
 }
 
 button {
+    padding: 5px 10px; /* Ajuste o padding para diminuir o tamanho do botão */
+    font-size: 12px; /* Diminui o tamanho da fonte */
+    width: auto; /* Ajusta a largura conforme o conteúdo */
+    height: auto; /* Ajusta a altura conforme o conteúdo */
+    border-radius: 5px; /* Opcional: arredonda os cantos */
     background-color: #007bff;
     color: white;
     border: none;
@@ -339,6 +423,65 @@ button {
 button:hover {
     background-color: #45a049; /* Cor do botão ao passar o mouse */
 }
+
+.suggestion-section {
+    margin-top: 30px;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 12px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    text-align: center;
+  }
+  
+  .suggestion-section h2 {
+    font-size: 1.6rem;
+    color: #007bff;
+    margin-bottom: 20px;
+  }
+  
+  .suggestion-section input[type="text"] {
+    padding: 14px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 450px;
+    font-size: 1rem;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+  }
+  
+  .whatsapp-button {
+    background-color: #25D366;
+    color: white;
+    border: none;
+    padding: 14px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .whatsapp-button:hover {
+    background-color: #1ebe5d;
+  }
+  
+  .whatsapp-button img {
+    width: 22px;
+    height: 22px;
+  }
+  
+  #mensagem-sugestao {
+    display: none;
+    color: green;
+    margin-top: 12px;
+    font-weight: 500;
+    font-size: 0.95rem;
+  }
+  
+
 @media (max-width: 600px) {
     .container {
         padding: 15px;
