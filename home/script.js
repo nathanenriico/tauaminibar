@@ -266,7 +266,7 @@ function enviarSugestaoWhatsapp() {
     const numero = "5511941716617"; // Troque pelo número do hotel com DDI
   
     if (sugestao === "") {
-        mostrarSuggestionPopup(); // Exibe o popup se a sugestão estiver vazia
+                mostrarSuggestionPopup(); // Exibe o popup se a sugestão estiver vazia
         return;
     }
   
