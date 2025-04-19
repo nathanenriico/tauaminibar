@@ -250,3 +250,41 @@ function getResponse(message) {
 function redirectToWhatsApp() {
     window.location.href = "https://wa.me/5511941716617?text=Olá, tenho uma dúvida sobre o frigobar.";
 }
+
+   // Função para mostrar o popup de sugestão
+   function mostrarSuggestionPopup() {
+    document.getElementById('suggestion-popup').style.display = 'flex';
+}
+
+// Função para fechar o popup de sugestão
+function fecharSuggestionPopup() {
+    document.getElementById('suggestion-popup').style.display = 'none';
+}
+
+function enviarSugestaoWhatsapp() {
+    const sugestao = document.getElementById("item-sugestao").value.trim();
+    const numero = "5511941716617"; // Troque pelo número do hotel com DDI
+  
+    if (sugestao === "") {
+        mostrarSuggestionPopup(); // Exibe o popup se a sugestão estiver vazia
+        return;
+    }
+  
+    // Monta a mensagem
+    const mensagem = `Olá! Gostaria de sugerir o item "${sugestao}" para o frigobar do hotel.`;
+  
+    // Cria o link do WhatsApp
+    const linkWhatsapp = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
+  
+    // Abre o WhatsApp em nova aba
+    window.open(linkWhatsapp, '_blank');
+  
+    // Feedback visual local
+    document.getElementById("mensagem-sugestao").style.display = "block";
+    document.getElementById("item-sugestao").value = "";
+  
+    // Esconde a mensagem depois de 3 segundos
+    setTimeout(() => {
+      document.getElementById("mensagem-sugestao").style.display = "none";
+    }, 3000);
+  }
