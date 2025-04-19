@@ -261,6 +261,26 @@
             <button class="whatsapp-btn" onclick="redirectToWhatsApp()">📞 Falar com a recepção</button>
         </div>
     </div>
+    
+    <div class="suggestion-section">
+        <h2>Sugira um item para o Frigobar</h2>
+        <input type="text" id="item-sugestao" placeholder="Digite aqui sua sugestão">
+      
+        <button onclick="enviarSugestaoWhatsapp()" class="whatsapp-button">
+          <img src="https://img.icons8.com/ios-filled/50/ffffff/whatsapp.png" alt="WhatsApp">
+          Enviar Sugestão
+        </button>
+      
+        <p id="mensagem-sugestao">Sugestão enviada pelo WhatsApp!</p>
+      </div>
+</div>   
+
+<div id="suggestion-popup" class="popup" style="display: none;">
+    <div class="popup-content">
+        <h2>Por favor, digite sua sugestão!</h2>
+        <button onclick="fecharSuggestionPopup()">OK</button>
+    </div>
+</div>
 
     <script src="script.js"></script>
 </body>
