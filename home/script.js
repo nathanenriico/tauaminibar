@@ -261,37 +261,37 @@ function fecharSuggestionPopup() {
     document.getElementById('suggestion-popup').style.display = 'none';
 }
 
-function enviarSugestaoWhatsapp() {
+function enviarSugestao() {
     const aptoInput = document.getElementById("apartamento");
     const sugestaoInput = document.getElementById("item-sugestao");
-  
+
     const apartamento = aptoInput.value.trim();
     const sugestao = sugestaoInput.value.trim();
-    const numero = "5511941716617";
-  
+
     if (apartamento === "" || sugestao === "") {
-      mostrarSuggestionPopup(); // ou um alert normal, se quiser
-      return;
+        mostrarSuggestionPopup();
+        return;
     }
-  
-    // Adiciona sugestão ao localStorage (agora como objeto)
+
+    // Adiciona sugestão ao localStorage (agora com a data)
     let sugestoes = JSON.parse(localStorage.getItem("sugestoes")) || [];
     sugestoes.push({ apartamento, sugestao });
     localStorage.setItem("sugestoes", JSON.stringify(sugestoes));
-  
-    // Monta a mensagem do WhatsApp
-    const mensagem = `Olá! Sou do apartamento ${apartamento} e gostaria de sugerir o item "${sugestao}" para o frigobar do hotel.`;
-    const linkWhatsapp = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
-    window.open(linkWhatsapp, '_blank');
-  
-    // Feedback visual
-    document.getElementById("mensagem-sugestao").style.display = "block";
+
+    // Exibe o popup de sucesso
+    const popupSucesso = document.getElementById("popup-sucesso");
+    popupSucesso.style.display = "block";
+
+    // Limpa os campos de entrada
     aptoInput.value = "";
     sugestaoInput.value = "";
-  
+
+    // Esconde o popup depois de 3 segundos
     setTimeout(() => {
-      document.getElementById("mensagem-sugestao").style.display = "none";
-    }, 3000);
-  }
+        popupSucesso.style.display = "none";
+    }, 1000);
+}
+;
+  
   
   
