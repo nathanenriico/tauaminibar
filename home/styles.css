@@ -293,30 +293,58 @@ button:hover {
     margin-bottom: 15px;
 }
 
-/* Botão WhatsApp */
+/* Estilo para o botão */
 .whatsapp-button {
-    background-color: #25D366;
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 8px;
-    font-size: 1rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    transition: background-color 0.3s ease;
-    width: 100%;
+  background-color: #25D366;
+  color: white;
+  border: none;
+  padding: 14px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 1rem;
+  width: 100%; /* Faz o botão ocupar toda a largura */
+  margin-top: 16px; /* Espaço em cima */
+  display: block; /* Faz o botão virar bloco e ocupar a linha inteira */
+  text-align: center;
 }
 
 .whatsapp-button:hover {
-    background-color: #1ebe5d;
+  background-color: #1ebe5d;
 }
 
-.whatsapp-button img {
-    width: 22px;
-    height: 22px;
+/* Estilo para o popup de sucesso */
+.popup-sucesso {
+  display: none; /* Inicialmente escondido */
+  position: fixed;
+  z-index: 1000;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #4CAF50; /* Fundo verde */
+  color: white;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 1.2rem;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  width: 300px;
+  max-width: 90%;
+  transition: opacity 0.3s ease;
 }
+
+/* Para mostrar o popup */
+.popup-sucesso.show {
+  display: block;
+  opacity: 1;
+}
+
+/* Efeito de fade-in ao exibir o popup */
+.popup-sucesso.hide {
+  opacity: 0;
+  display: none;
+}
+
 
 /* Ajustes responsivos */
 @media (max-width: 600px) {
