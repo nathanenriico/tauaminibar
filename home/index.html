@@ -278,18 +278,21 @@
     
     <div class="suggestion-section">
         <h2>Sugira um item para o Frigobar</h2>
-      
+    
         <input type="text" id="apartamento" placeholder="Número do apartamento">
         <input type="text" id="item-sugestao" placeholder="Digite aqui sua sugestão">
-      
-        <button onclick="enviarSugestaoWhatsapp()" class="whatsapp-button">
-          <img src="https://img.icons8.com/ios-filled/50/ffffff/whatsapp.png" alt="WhatsApp">
-          Enviar Sugestão
+    
+        <button onclick="enviarSugestao()" class="whatsapp-button">
+            Enviar Sugestão
         </button>
-      
-        <p id="mensagem-sugestao">Sugestão enviada pelo WhatsApp!</p>
-      </div>
-      
+        
+    
+        <!-- Popup de sucesso -->
+        <div id="popup-sucesso" class="popup-sucesso" style="display:none;">
+            <p>Sugestão enviada com sucesso!</p>
+        </div>
+    </div>
+    
 
 <div id="suggestion-popup" class="popup" style="display: none;">
     <div class="popup-content">
