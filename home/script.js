@@ -261,37 +261,43 @@ function fecharSuggestionPopup() {
     document.getElementById('suggestion-popup').style.display = 'none';
 }
 
-function enviarSugestao() {
-    const aptoInput = document.getElementById("apartamento");
-    const sugestaoInput = document.getElementById("item-sugestao");
-
-    const apartamento = aptoInput.value.trim();
-    const sugestao = sugestaoInput.value.trim();
-
-    if (apartamento === "" || sugestao === "") {
-        mostrarSuggestionPopup();
-        return;
+function mostrarSugestaoCampo() {
+    const categoria = document.getElementById("categoria").value;
+    const sugestaoCampo = document.getElementById("sugestao-campo");
+  
+    if (categoria !== "") {
+      sugestaoCampo.style.display = "block";
+    } else {
+      sugestaoCampo.style.display = "none";
     }
-
-    // Adiciona sugestão ao localStorage (agora com a data)
+  }
+  
+  function enviarSugestao() {
+    const aptoInput = document.getElementById("apartamento");
+    const categoriaInput = document.getElementById("categoria");
+    const sugestaoInput = document.getElementById("item-sugestao");
+  
+    const apartamento = aptoInput.value.trim();
+    const categoria = categoriaInput.value.trim();
+    const sugestao = sugestaoInput.value.trim();
+  
+    if (apartamento === "" || categoria === "" || sugestao === "") {
+      mostrarSuggestionPopup();
+      return;
+    }
+  
     let sugestoes = JSON.parse(localStorage.getItem("sugestoes")) || [];
-    sugestoes.push({ apartamento, sugestao });
+    sugestoes.push({ apartamento, categoria, sugestao });
     localStorage.setItem("sugestoes", JSON.stringify(sugestoes));
-
-    // Exibe o popup de sucesso
+  
     const popupSucesso = document.getElementById("popup-sucesso");
     popupSucesso.style.display = "block";
-
-    // Limpa os campos de entrada
+  
     aptoInput.value = "";
+    categoriaInput.value = "";
     sugestaoInput.value = "";
-
-    // Esconde o popup depois de 3 segundos
+  
     setTimeout(() => {
-        popupSucesso.style.display = "none";
+      popupSucesso.style.display = "none";
     }, 1000);
-}
-;
-  
-  
-  
+  }
