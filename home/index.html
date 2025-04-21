@@ -278,22 +278,29 @@
     
     <div class="suggestion-section">
         <h2>Sugira um item para o Frigobar</h2>
-    
+      
         <input type="text" id="apartamento" placeholder="Número do apartamento">
-        <input type="text" id="item-sugestao" placeholder="Digite aqui sua sugestão">
-    
-        <button onclick="enviarSugestao()" class="whatsapp-button">
-            Enviar Sugestão
-        </button>
-        
-    
+      
+        <select id="categoria" onchange="mostrarSugestaoCampo()">
+          <option value="">Selecione uma categoria</option>
+          <option value="Bebidas">Bebidas</option>
+          <option value="Chocolates">Chocolates</option>
+          <option value="Doces">Doces</option>
+          <option value="Outros">Outros</option>
+        </select>
+      
+        <div id="sugestao-campo" style="display:none;">
+          <input type="text" id="item-sugestao" placeholder="Digite aqui sua sugestão">
+          <button onclick="enviarSugestao()" class="whatsapp-button">Enviar Sugestão</button>
+        </div>
+      
         <!-- Popup de sucesso -->
         <div id="popup-sucesso" class="popup-sucesso" style="display:none;">
-            <p>Sugestão enviada com sucesso!</p>
+          <p>Sugestão enviada com sucesso!</p>
         </div>
-    </div>
-    
-
+      </div>
+      
+      
 <div id="suggestion-popup" class="popup" style="display: none;">
     <div class="popup-content">
         <h2>Por favor, digite sua sugestão!</h2>
