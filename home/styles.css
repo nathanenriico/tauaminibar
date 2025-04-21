@@ -523,30 +523,36 @@ button:hover {
 }
 
 .suggestion-section {
-    margin-top: 30px;
-    padding: 20px;
-    background: #f9f9f9;
-    border-radius: 12px;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
-    text-align: center;
-  }
-  
-  .suggestion-section h2 {
-    font-size: 1.6rem;
-    color: #007bff;
-    margin-bottom: 20px;
-  }
-  
-  .suggestion-section input[type="text"] {
-    padding: 14px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    width: 100%;
-    max-width: 450px;
-    font-size: 1rem;
-    margin-bottom: 15px;
-    box-sizing: border-box;
-  }
+  background: #fff;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  margin-top: 20px;
+}
+
+.suggestion-section h2 {
+  font-size: 1.6rem;
+  color: #007bff;
+  margin-bottom: 20px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.suggestion-section input,
+.suggestion-section select {
+  width: 100%;
+  padding: 14px 20px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  font-size: 1rem;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+  background: #f9f9f9;
+}
+
+.suggestion-section select {
+  text-align: center;
+}
   
   .whatsapp-button {
     background-color: #25D366;
