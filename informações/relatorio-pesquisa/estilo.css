@@ -160,3 +160,18 @@ main {
     text-align: center;
   }
 }
+.btn-excel {
+  background-color: #0072ce; /* Azul */
+  color: #fff;
+  border: none;
+  padding: 14px 28px;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-excel:hover {
+  background-color: #0059a3; /* Azul mais escuro */
+}
+
