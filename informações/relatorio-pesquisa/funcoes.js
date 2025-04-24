@@ -74,3 +74,31 @@ function gerarPDF() {
       location.reload(); // Recarrega a página para atualizar a lista
     }
   }
+
+  function gerarPlanilha() {
+    const sugestoes = JSON.parse(localStorage.getItem("sugestoes")) || [];
+  
+    if (sugestoes.length === 0) {
+      alert("Nenhuma sugestão para gerar a planilha.");
+      return;
+    }
+  
+    // Preparar os dados para a planilha
+    const dados = [];
+    dados.push(["Apartamento", "Categoria", "Sugestão"]); // Cabeçalho da planilha
+  
+    sugestoes.forEach(item => {
+      dados.push([item.apartamento, item.categoria, item.sugestao]);
+    });
+  
+    // Criar a worksheet e o workbook
+    const ws = XLSX.utils.aoa_to_sheet(dados);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Sugestões");
+  
+    // Exportar a planilha
+    XLSX.writeFile(wb, "sugestoes-frigobar.xlsx");
+  }
+  
+  
+  
