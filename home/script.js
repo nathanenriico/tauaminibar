@@ -165,49 +165,103 @@ function mostrarPreview(event) {
 }
 
 function enviarWhatsapp() {
-    // Obtém o comprovante (arquivo) e o número do apartamento
-    const comprovante = document.getElementById("comprovante").files[0];
-    const apartamento = document.getElementById("apartment-number").value.trim();
-
-    // Verifica se o comprovante foi selecionado
-    if (!comprovante) {
+    try {
+      // Obtém o comprovante (arquivo) e verifica se o elemento existe
+      const comprovanteInput = document.getElementById("comprovante");
+      if (!comprovanteInput) {
+        console.error("Elemento 'comprovante' não encontrado.");
+        return;
+      }
+      const comprovante = comprovanteInput.files[0];
+      if (!comprovante) {
         document.getElementById("comprovante-popup").style.display = "flex";
         return;
-    }
-
-    // Verifica se o número do apartamento foi informado
-    if (!apartamento) {
+      }
+  
+      // Obtém o número do apartamento
+      const apartmentElement = document.getElementById("apartment-number");
+      const apartment = apartmentElement ? apartmentElement.value.trim() : "";
+      if (!apartment) {
         alert("Informe o número do apartamento antes de enviar.");
         return;
-    }
-
-    // Mensagem que será compartilhada junto com o comprovante
-    const mensagem = `Olá, segue o comprovante de pagamento do apartamento ${apartamento}. Por favor, verifique no sistema.`;
-
-    // Verifica se o navegador suporta a Web Share API com suporte para arquivos
-    if (navigator.share && navigator.canShare && navigator.canShare({ files: [comprovante] })) {
+      }
+  
+      // Obtém o número do WhatsApp (se informado) ou usa padrão "11941716617"
+      let whatsappNumberElem = document.getElementById("whatsapp-number");
+      let whatsappNumber = whatsappNumberElem ? whatsappNumberElem.value.trim() : "";
+      if (!whatsappNumber) {
+        whatsappNumber = "11941716617";
+      }
+      // Adiciona o código do país (Brasil) se não estiver incluído
+      if (!whatsappNumber.startsWith("55")) {
+        whatsappNumber = "55" + whatsappNumber;
+      }
+  
+      // Monta a mensagem a ser enviada
+      const mensagem = `Olá, segue o comprovante de pagamento do apartamento ${apartment}. Por favor, verifique no sistema.`;
+  
+      // Tenta usar a Web Share API com suporte para arquivos
+      if (navigator.share && navigator.canShare && navigator.canShare({ files: [comprovante] })) {
         navigator.share({
-            title: 'Comprovante de Pagamento',
-            text: mensagem,
-            files: [comprovante]
+          title: 'Comprovante de Pagamento',
+          text: mensagem,
+          files: [comprovante]
         })
-        .then(() => {
+          .then(() => {
             console.log('Compartilhado com sucesso!');
-            // Aqui você pode executar ações adicionais se necessário
-        })
-        .catch((error) => {
+            // Ações adicionais podem ser executadas aqui.
+          })
+          .catch((error) => {
             console.error("Erro ao compartilhar:", error);
             alert("Ocorreu um erro ao tentar compartilhar o comprovante.");
-        });
-    } else {
-        // Se o compartilhamento de arquivos não for suportado, notifica o usuário
+          });
+      } else {
         alert("Seu dispositivo ou navegador não suporta o envio automático de arquivos. Por favor, envie o comprovante manualmente pelo WhatsApp.");
-        // Opcionalmente, abra o link do WhatsApp apenas com a mensagem:
-        const numero = "5511941716617";
-        const link = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
+        const link = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(mensagem)}`;
         window.open(link, '_blank');
+      }
+    } catch (err) {
+      console.error("Erro na função enviarWhatsapp:", err);
     }
-}
+  }
+  
+  // Função para fechar o popup de comprovante
+  function fecharComprovantePopup() {
+    document.getElementById("comprovante-popup").style.display = "none";
+  }
+  
+  // Função de exemplo para fechar o popup de pagamento
+  function fecharPopup() {
+    document.getElementById("payment-popup").style.display = "none";
+  }
+  
+  // Exemplo de função copiarPix (você já deve ter sua própria implementação)
+  function copiarPix() {
+    const pixTextarea = document.getElementById("pix-code");
+    pixTextarea.select();
+    document.execCommand("copy");
+    alert("Código copiado!");
+  }
+  
+  // Exemplo de função mostrarPreview para pré-visualizar a imagem
+  function mostrarPreview(event) {
+    const arquivo = event.target.files[0];
+    if (arquivo) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        document.getElementById("preview-comprovante").innerHTML = `
+          <p><strong>Prévia do comprovante:</strong></p>
+          <img src="${e.target.result}" alt="Comprovante" style="max-width: 100%; margin-top: 10px; border-radius: 8px;">
+        `;
+      };
+      reader.readAsDataURL(arquivo);
+    }
+  }
+  
+  // Função para fechar o popup de aviso do número do apartamento
+  function closeWarningPopup() {
+    document.getElementById("warning-popup").style.display = "none";
+  }  
 
 
 function fecharComprovantePopup() {
