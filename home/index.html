@@ -212,57 +212,79 @@
     </div>
     
     <!-- Novo Popup para o QR Code -->
-    <div id="payment-popup" class="popup" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5);">
-        <div class="popup-content" style="position: relative; background: white; padding: 20px; border-radius: 8px; width: 90%; max-width: 400px; margin: 50px auto;">
-      
-          <!-- Ícone de fechar -->
-          <span class="close-button" onclick="fecharPopup()">&times;</span>
-      
-          <h2>Finalize seu pagamento</h2>
-          <div id="qrcode"></div>
-      
-          <p><strong>Copia e Cola Pix:</strong></p>
-          <textarea id="pix-code" rows="4" readonly style="width: 100%; font-size: 14px;"></textarea>
-          <button onclick="copiarPix()">Copiar Código</button>
-      
-          <hr>
-      
-          <div class="comprovante-section">
-            <label for="comprovante">📎 Anexar comprovante:</label>
-            <input type="file" id="comprovante" accept="image/*" onchange="mostrarPreview(event)">
-            <div id="preview-comprovante"></div>
-      
-            <button onclick="enviarWhatsapp()" class="whatsapp-button" style="margin-top: 10px;">
-              <img src="https://img.icons8.com/ios-filled/50/ffffff/whatsapp.png" alt="WhatsApp" style="width: 20px; margin-right: 5px;">
-              Enviar pelo WhatsApp
-            </button>
-          </div>
-      
-          <div id="comprovante-lembrete" class="lembrete" style="margin-top: 10px;">
-            📌 <strong>Importante:</strong> Após efetuar o pagamento, lembre-se de anexar o comprovante e enviá-lo pelo WhatsApp usando o botão abaixo.
-          </div>
-        </div>
-      </div>
-      
-            
-            
-            <!-- Popup de aviso -->
-            <div id="comprovante-popup" class="popup">
-                <div class="popup-content">
-                    <h2>⚠️ Atenção</h2>
-                    <p>Por favor, anexe o comprovante antes de enviar pelo WhatsApp.</p>
-                    <button onclick="fecharComprovantePopup()">Ok</button>
-                </div>
-            </div>            
-            
+   <!-- Popup de Pagamento -->
+<div
+id="payment-popup"
+class="popup"
+style="display: block; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000;"
+>
+<div
+  class="popup-content"
+  style="position: relative; background: white; padding: 20px; border-radius: 8px; width: 90%; max-width: 400px; margin: 50px auto;"
+>
+  <!-- Ícone de fechar -->
+  <span class="close-button" onclick="fecharPopup()" style="cursor: pointer; position: absolute; top: 10px; right: 15px; font-size: 24px;">&times;</span>
 
-    <div id="warning-popup" class="popup" style="display: none;">
-        <div class="popup-content">
-            <h2>Aviso</h2>
-            <p>Por favor, insira o número do apartamento antes de confirmar o consumo.</p>
-            <button onclick="closeWarningPopup()">Fechar</button>
-        </div>
-    </div>
+  <h2>Finalize seu pagamento</h2>
+  <div id="qrcode"></div>
+
+  <p><strong>Copia e Cola Pix:</strong></p>
+  <textarea id="pix-code" rows="4" readonly style="width: 100%; font-size: 14px;"></textarea>
+  <button onclick="copiarPix()">Copiar Código</button>
+
+  <hr>
+
+  <div class="comprovante-section">
+    <label for="comprovante">📎 Anexar comprovante:</label>
+    <input type="file" id="comprovante" accept="image/*" onchange="mostrarPreview(event)">
+    <div id="preview-comprovante"></div>
+
+    <!-- Input para o número do apartamento -->
+    <input
+      type="text"
+      id="apartment-number"
+      placeholder="Número do apartamento"
+      style="margin-top: 10px; width: 100%; padding: 8px;"
+    />
+    
+    <!-- Input opcional para o número do WhatsApp -->
+    <input
+      type="text"
+      id="whatsapp-number"
+      placeholder="Número do WhatsApp (ex: 11941716617)"
+      style="margin-top: 10px; width: 100%; padding: 8px;"
+    />
+
+    <button onclick="enviarWhatsapp()" class="whatsapp-button" style="margin-top: 10px; display: flex; align-items: center; padding: 8px 12px; background-color: #25D366; border: none; border-radius: 4px; cursor: pointer;">
+      <img src="https://img.icons8.com/ios-filled/50/ffffff/whatsapp.png" alt="WhatsApp" style="width: 20px; margin-right: 5px;">
+      Enviar pelo WhatsApp
+    </button>
+  </div>
+
+  <div id="comprovante-lembrete" class="lembrete" style="margin-top: 10px;">
+    📌 <strong>Importante:</strong> Após efetuar o pagamento, lembre-se de anexar o comprovante e enviá-lo pelo WhatsApp usando o botão acima.
+  </div>
+</div>
+</div>
+
+<!-- Popup de aviso para comprovante não anexado -->
+<div id="comprovante-popup" class="popup" style="display: none; position: fixed; top: 0; left: 0; width:100%; height:100%; background: rgba(0,0,0,0.5); z-index: 1100;">
+<div class="popup-content" style="background: white; padding: 20px; border-radius: 8px; width: 90%; max-width: 400px; margin: 50px auto;">
+  <h2>⚠️ Atenção</h2>
+  <p>Por favor, anexe o comprovante antes de enviar pelo WhatsApp.</p>
+  <button onclick="fecharComprovantePopup()" style="padding: 8px 12px;">Ok</button>
+</div>
+</div>
+
+<!-- Popup de aviso para número do apartamento não informado -->
+<div id="warning-popup" class="popup" style="display: none; position: fixed; top: 0; left: 0; width:100%; height:100%; background: rgba(0,0,0,0.5); z-index: 1100;">
+<div class="popup-content" style="background: white; padding: 20px; border-radius: 8px; width: 90%; max-width: 400px; margin: 50px auto;">
+  <h2>Aviso</h2>
+  <p>Por favor, insira o número do apartamento antes de confirmar o consumo.</p>
+  <button onclick="closeWarningPopup()" style="padding: 8px 12px;">Fechar</button>
+</div>
+</div>
+
     <div id="chatbot" class="chatbot">
         <div class="chat-header">
             <span>🤖 Assistente Virtual</span>
