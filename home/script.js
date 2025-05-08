@@ -165,24 +165,50 @@ function mostrarPreview(event) {
 }
 
 function enviarWhatsapp() {
+    // Obtém o comprovante (arquivo) e o número do apartamento
     const comprovante = document.getElementById("comprovante").files[0];
     const apartamento = document.getElementById("apartment-number").value.trim();
 
+    // Verifica se o comprovante foi selecionado
     if (!comprovante) {
         document.getElementById("comprovante-popup").style.display = "flex";
         return;
     }
 
+    // Verifica se o número do apartamento foi informado
     if (!apartamento) {
         alert("Informe o número do apartamento antes de enviar.");
         return;
     }
 
+    // Mensagem que será compartilhada junto com o comprovante
     const mensagem = `Olá, segue o comprovante de pagamento do apartamento ${apartamento}. Por favor, verifique no sistema.`;
-    const numero = "5511941716617"; // com DDI
-    const link = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
-    window.open(link, '_blank');
+
+    // Verifica se o navegador suporta a Web Share API com suporte para arquivos
+    if (navigator.share && navigator.canShare && navigator.canShare({ files: [comprovante] })) {
+        navigator.share({
+            title: 'Comprovante de Pagamento',
+            text: mensagem,
+            files: [comprovante]
+        })
+        .then(() => {
+            console.log('Compartilhado com sucesso!');
+            // Aqui você pode executar ações adicionais se necessário
+        })
+        .catch((error) => {
+            console.error("Erro ao compartilhar:", error);
+            alert("Ocorreu um erro ao tentar compartilhar o comprovante.");
+        });
+    } else {
+        // Se o compartilhamento de arquivos não for suportado, notifica o usuário
+        alert("Seu dispositivo ou navegador não suporta o envio automático de arquivos. Por favor, envie o comprovante manualmente pelo WhatsApp.");
+        // Opcionalmente, abra o link do WhatsApp apenas com a mensagem:
+        const numero = "5511941716617";
+        const link = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
+        window.open(link, '_blank');
+    }
 }
+
 
 function fecharComprovantePopup() {
     document.getElementById("comprovante-popup").style.display = "none";
@@ -301,3 +327,4 @@ function mostrarSugestaoCampo() {
       popupSucesso.style.display = "none";
     }, 1000);
   }
+  
